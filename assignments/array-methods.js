@@ -58,28 +58,58 @@ const runners = [
 // ==== Challenge 1: Use .forEach() ====
 // The event director needs both the first and last names of each runner for their running bibs. Combine both the first and last names and populate a new array called `fullNames`. This array will contain just strings.
 let fullNames = [];
+
+runners.forEach(function(id){
+  return fullNames.push(`${id.first_name} ${id.last_name}`)
+});
 console.log(fullNames);
 
 // ==== Challenge 2: Use .map() ====
 // The event director needs to have all the runners' first names in uppercase because the director BECAME DRUNK WITH POWER. Populate an array called `firstNamesAllCaps`. This array will contain just strings.
-let firstNamesAllCaps = [];
+let firstNames = runners.map(function(runners){
+  return runners.first_name;
+});
+
+let firstNamesAllCaps = firstNames.map(function(firstNames){
+  return firstNames.toUpperCase();
+});
+
 console.log(firstNamesAllCaps);
 
 // ==== Challenge 3: Use .filter() ====
 // The large shirts won't be available for the event due to an ordering issue. We need a filtered version of the runners array, containing only those runners with large sized shirts so they can choose a different size. This will be an array of objects.
-let runnersLargeSizeShirt = [];
+let runnersLargeSizeShirt = runners.filter(function(shirt){
+  return (shirt.shirt_size === "L");
+});
 console.log(runnersLargeSizeShirt);
 
 // ==== Challenge 4: Use .reduce() ====
 // The donations need to be tallied up and reported for tax purposes. Add up all the donations and save the total into a ticketPriceTotal variable.
-let ticketPriceTotal = 0;
+let ticketPriceTotal = runners.reduce(function(accumilator,currentvalue){
+  return accumilator + currentvalue.donation;
+}, 0);
 console.log(ticketPriceTotal);
 
 // ==== Challenge 5: Be Creative ====
 // Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
-// Problem 1
+// Problem 1: The government needs company names and donation amounts for tax purposes. Create an array with just these two objects
+let compdons = []
+runners.map(function(runners){
+  return compdons.push(`${runners.company_name} ${runners.donation}`)
+});
+console.log(compdons);
+// Problem 2: The festival it guy needs all the emails uppercased because he can't see very well.
+let emails = runners.map(function(runners){
+  return runners.email;
+});
 
-// Problem 2
-
-// Problem 3
+let emailAllCaps = emails.map(function(emails){
+  return emails.toUpperCase();
+});
+console.log(emailAllCaps);
+// Problem 3: The festival team needs the information of those who donated over $200 to give away prizes.
+let ballers = runners.filter(function(ballers){
+  return (ballers.donation > 200);
+});
+console.log(ballers);
